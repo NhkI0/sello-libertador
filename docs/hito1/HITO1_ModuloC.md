@@ -92,7 +92,7 @@ Dentro de `verificar`, el orden obligatorio es: 1) el título no existe (Inexist
 | `derivarLocalizador` | `external pure` | cualquiera | ninguno | - |
 | `raizDeMerkle` | `external pure` | cualquiera | `ListaVacia` (pendiente, semana 2) | - |
 | `hashDocumento`, `compromiso`, `hojaLote` | `external pure` | cualquiera | ninguno (ya hechas) | - |
-| `AnclajeLotes.*` | - |, | pendiente, semana 2 | pendiente |
+| `AnclajeLotes.*` | - | - | pendiente, semana 2 | pendiente |
 
 ### c) Respuestas razonadas
 
