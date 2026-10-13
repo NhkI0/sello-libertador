@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Documento de diseño — Módulo C</title>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Documento de diseño, Módulo C</title>
 <style>
 @page{size:A4;margin:16mm 15mm}
 body{font-family:Calibri,Arial,sans-serif;font-size:10pt;line-height:1.35;color:#1a1a1a}
@@ -8,8 +8,9 @@ table{border-collapse:collapse;width:100%;margin:4px 0;font-size:9pt}th,td{borde
 th{background:#e6eef7;text-align:left}code{font-family:Consolas,monospace;font-size:8.5pt}
 .r{page-break-inside:avoid}
 </style></head><body>
-<h1>Sello Libertador — Documento de diseño del Módulo C</h1>
-<p class="sub">Bloque 3: Verificación y enlace · Materia Criptografía y Blockchain 2026 · Hito 1 (13 de octubre)</p>
+<h1>Sello Libertador: documento de diseño del Módulo C</h1>
+<p class="sub">Bloque 3: Verificación y enlace. Materia Criptografía y Blockchain 2026. Hito 1 (13 de octubre)</p>
+<p class="cap">Equipo: Noé GUENGANT, Malo KERAUTRET, Lukas LAUDRAIN, Alex FOUGEROUX</p>
 
 <h2>a) Diagrama de flujo con dos carriles</h2>
 <svg viewBox="0 0 760 300" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Calibri,Arial,sans-serif" font-size="11">
@@ -30,27 +31,27 @@ th{background:#e6eef7;text-align:left}code{font-family:Consolas,monospace;font-s
 <g stroke="#2e86c1" stroke-width="1.6" fill="none" marker-end="url(#a)">
 <path d="M97 108 L150 178"/><path d="M280 211 L260 112"/><path d="M370 69 L386 69"/><path d="M483 108 L520 178"/><path d="M640 178 L673 110"/></g>
 </svg>
-<p><b>Orden dentro de <code>verificar</code></b> (el primero que falla decide): <code>obtenerTitulo</code> → Inexistente → <code>estabaAutorizado(emisor, facultad, fechaEmision)</code> → Revocado → Suspendido → compromiso distinto → DocumentoAlterado → Valido.</p>
+<p><b>Orden dentro de <code>verificar</code>:</b> 1) el título no existe (Inexistente), 2) el emisor no estaba autorizado en la fecha de emisión (<code>estabaAutorizado(emisor, facultad, fechaEmision)</code>), 3) Revocado, 4) Suspendido, 5) el compromiso no coincide (DocumentoAlterado), 6) Valido. Gana la primera condición que se cumple.</p>
 
 <h2>b) Tabla de funciones</h2>
 <table><tr><th>Función</th><th>Visibilidad</th><th>Quién puede llamarla</th><th>Errores que puede lanzar</th><th>Evento</th></tr>
 <tr><td><code>verificar</code></td><td>external view</td><td>Cualquiera, sin billetera</td><td>Ninguno: devuelve un veredicto</td><td>Ninguno (view)</td></tr>
 <tr><td><code>verificarConExplicacion</code></td><td>external view</td><td>Cualquiera, sin billetera</td><td>Ninguno</td><td>Ninguno (view)</td></tr>
-<tr><td><code>_veredicto</code></td><td>internal view</td><td>Solo el propio contrato</td><td>Ninguno</td><td>—</td></tr>
-<tr><td><code>_texto</code></td><td>internal pure</td><td>Solo el propio contrato</td><td>Ninguno</td><td>—</td></tr>
-<tr><td><code>constructor(titulos_, registro_)</code></td><td>público (despliegue)</td><td>Quien despliega</td><td>Ninguno</td><td>—</td></tr>
-<tr><td><code>byteAceptado</code></td><td>public pure</td><td>Cualquiera</td><td>Ninguno</td><td>—</td></tr>
-<tr><td><code>simboloDe</code></td><td>public pure</td><td>Cualquiera</td><td><code>ByteNoAceptado(b)</code></td><td>—</td></tr>
-<tr><td><code>derivarLocalizador</code></td><td>external pure</td><td>Cualquiera</td><td>Ninguno</td><td>—</td></tr>
-<tr><td><code>raizDeMerkle</code></td><td>external pure</td><td>Cualquiera</td><td><code>ListaVacia</code> (pendiente, semana 2)</td><td>—</td></tr>
-<tr><td><code>hashDocumento</code>, <code>compromiso</code>, <code>hojaLote</code></td><td>external pure</td><td>Cualquiera</td><td>Ninguno (ya hechas)</td><td>—</td></tr>
+<tr><td><code>_veredicto</code></td><td>internal view</td><td>Solo el propio contrato</td><td>Ninguno</td><td>-</td></tr>
+<tr><td><code>_texto</code></td><td>internal pure</td><td>Solo el propio contrato</td><td>Ninguno</td><td>-</td></tr>
+<tr><td><code>constructor(titulos_, registro_)</code></td><td>público (despliegue)</td><td>Quien despliega</td><td>Ninguno</td><td>-</td></tr>
+<tr><td><code>byteAceptado</code></td><td>public pure</td><td>Cualquiera</td><td>Ninguno</td><td>-</td></tr>
+<tr><td><code>simboloDe</code></td><td>public pure</td><td>Cualquiera</td><td><code>ByteNoAceptado(b)</code></td><td>-</td></tr>
+<tr><td><code>derivarLocalizador</code></td><td>external pure</td><td>Cualquiera</td><td>Ninguno</td><td>-</td></tr>
+<tr><td><code>raizDeMerkle</code></td><td>external pure</td><td>Cualquiera</td><td><code>ListaVacia</code> (pendiente, semana 2)</td><td>-</td></tr>
+<tr><td><code>hashDocumento</code>, <code>compromiso</code>, <code>hojaLote</code></td><td>external pure</td><td>Cualquiera</td><td>Ninguno (ya hechas)</td><td>-</td></tr>
 <tr><td><code>AnclajeLotes.*</code></td><td colspan="4">Pendiente, semana 2</td></tr></table>
 
 <h2>c) Respuestas razonadas</h2>
 <div class="r"><h3>1. ¿Por qué se consulta <code>estabaAutorizado</code> y no <code>estaAutorizado</code>?</h3>
 <p><b>Decisión:</b> se pregunta si el emisor estaba autorizado en la fecha de emisión. <b>Razón:</b> con el presente, todos los títulos de un funcionario dejarían de ser válidos el día que cambia de cargo. <b>Alternativa descartada:</b> <code>estaAutorizado</code>, que invalida títulos legítimos ya emitidos.</p></div>
 <div class="r"><h3>2. ¿Por qué el estado se comprueba antes que el compromiso?</h3>
-<p><b>Decisión:</b> orden Inexistente → EmisorNoAutorizado → Revocado → Suspendido → DocumentoAlterado → Valido. <b>Razón:</b> la situación de un título no depende del documento presentado; un título revocado con un documento distinto debe dar «Revocado», no «documento alterado». <b>Alternativa descartada:</b> comprobar el compromiso primero, que da un veredicto engañoso.</p></div>
+<p><b>Decisión:</b> orden Inexistente, EmisorNoAutorizado, Revocado, Suspendido, DocumentoAlterado, Valido. <b>Razón:</b> la situación de un título no depende del documento presentado; un título revocado con un documento distinto debe dar «Revocado», no «documento alterado». <b>Alternativa descartada:</b> comprobar el compromiso primero, que da un veredicto engañoso.</p></div>
 <div class="r"><h3>3. ¿Por qué <code>verificar</code> es <code>view</code>?</h3>
 <p><b>Decisión:</b> no modifica estado. <b>Razón:</b> no cuesta gas a quien consulta ni exige billetera, que es el objetivo del proyecto. <b>Alternativa descartada:</b> emitir un evento con el veredicto, lo que exigiría una transacción firmada y pagada.</p></div>
 <div class="r"><h3>4. ¿Por qué <code>byteAceptado</code> solo acepta bytes menores que 252?</h3>
@@ -65,5 +66,5 @@ th{background:#e6eef7;text-align:left}code{font-family:Consolas,monospace;font-s
 <tr><td>Documento (nombre, carrera, fecha)</td><td>Sí</td><td>Sí</td><td>Sí: lo descifra</td><td>No: solo ve el compromiso</td><td>Solo con el enlace completo; sin <code>#k</code> solo ve <code>ed</code> cifrado</td></tr>
 <tr><td>Sal</td><td>Sí: la generó</td><td>Sí (en el enlace)</td><td>Sí: sale al descifrar <code>ed</code></td><td>No</td><td>Solo con el enlace completo</td></tr>
 <tr><td>Clave k</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No: nunca está en la cadena</td><td>Solo con el enlace completo</td></tr></table>
-<p><b>Conclusión:</b> un tercero que solo mira la cadena ve localizador, compromiso, facultad, programa, fecha, estado y emisor: sabe que existe un título y en qué estado, pero no quién es el titulado ni qué dice el documento, porque sin la sal no puede adivinar el hash. Quien consigue el enlace completo lee todo el documento: el enlace es un título al portador, una decisión de diseño que se analiza en el modelo de amenazas.</p>
+<p><b>Conclusión:</b> un tercero que solo mira la cadena ve localizador, compromiso, facultad, programa, fecha, estado y emisor: sabe que existe un título y en qué estado, pero no quién es el titulado ni qué dice el documento, porque sin la sal no puede adivinar el hash. Quien consigue el enlace completo lee todo el documento: el enlace es un título al portador, una decisión de diseño que se trata en el modelo de amenazas.</p>
 </body></html>

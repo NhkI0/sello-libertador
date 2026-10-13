@@ -5,7 +5,7 @@ import "../interfaces/IVerificadorUBO.sol";
 import "../interfaces/IRegistroTitulos.sol";
 import "../interfaces/IRegistroEmisores.sol";
 
-/// @title VerificadorUBO — Módulo C (Curso C)
+/// @title VerificadorUBO, Módulo C (Curso C)
 /// @notice Aplica la regla RN-06 y devuelve un veredicto.
 /// @dev    Orden OBLIGATORIO (el primero que falla decide):
 ///         1) Inexistente  2) EmisorNoAutorizado (en la FECHA DE EMISIÓN)
