@@ -18,31 +18,31 @@ contract HerramientasSello is IHerramientasSello {
     // ---------------------------------------------------------------
     // Localizador sin sesgo de módulo
     // ---------------------------------------------------------------
+    /// @dev 256 = 7 × 36 + 4. El mayor múltiplo de 36 que cabe en 256 es 252 (7 × 36),
+    ///      así que se aceptan los bytes 0..251: cada símbolo recibe exactamente 7 bytes.
     function byteAceptado(uint8 b) public pure override returns (bool) {
-        // TODO: ¿cuál es el mayor múltiplo de 36 que cabe en 256?
-        //       Se aceptan los bytes menores que ese valor.
-        b;
-        return false;
+        return b < 252;
     }
 
     function simboloDe(uint8 b) public pure override returns (bytes1) {
-        // TODO: revertir con ByteNoAceptado si el byte no es aceptado
-        // TODO: devolver el símbolo que corresponde al resto de dividir b por 36
-        b;
-        revert("TODO: simboloDe");
+        if (!byteAceptado(b)) revert ByteNoAceptado(b);
+        return ALFABETO[b % 36];
     }
 
     function derivarLocalizador(bytes32 semilla) external pure override returns (bytes10) {
-        // TODO: seguir el procedimiento descrito en la interfaz:
-        //   1. h = keccak256(abi.encode(semilla))
-        //   2. recorrer los 32 bytes de h en orden: uint8(h[i])
-        //   3. si el byte es aceptado, añadir su símbolo; si no, descartarlo
-        //   4. si se acaban los 32 bytes y faltan símbolos: h = keccak256(abi.encode(h))
-        //   5. al tener 10 símbolos, devolverlos como bytes10
-        // PISTA: construye el resultado en un `bytes memory` de largo 10 y conviértelo
-        //        al final con bytes10(...).
-        semilla;
-        revert("TODO: derivarLocalizador");
+        bytes memory resultado = new bytes(10);
+        uint256 n = 0;
+        bytes32 h = keccak256(abi.encode(semilla));
+        while (n < 10) {
+            for (uint256 i = 0; i < 32 && n < 10; i++) {
+                uint8 b = uint8(h[i]);
+                if (byteAceptado(b)) {
+                    resultado[n++] = simboloDe(b);
+                }
+            }
+            if (n < 10) h = keccak256(abi.encode(h));
+        }
+        return bytes10(resultado);
     }
 
     // ---------------------------------------------------------------
