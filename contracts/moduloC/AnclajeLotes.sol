@@ -39,26 +39,33 @@ contract AnclajeLotes is IAnclajeLotes {
         registro = IRegistroEmisores(registro_);
     }
 
+    /// @dev Orden: autorización (estaAutorizado, el presente), raíz vacía, raíz repetida.
+    ///      Se escribe el estado solo después de validar todo.
     function anclarLote(bytes32 raiz, bytes32 facultad, bytes32 idCeremonia)
         external
         override
         returns (uint256 loteId)
     {
-        // TODO: autorización, validaciones, guardar el lote y emitir LoteAnclado
-        raiz; facultad; idCeremonia; loteId;
-        revert("TODO: anclarLote");
+        if (!registro.estaAutorizado(msg.sender, facultad)) revert NoAutorizado(msg.sender, facultad);
+        if (raiz == bytes32(0)) revert RaizInvalida();
+        if (_raizUsada[raiz]) revert RaizDuplicada(raiz);
+
+        loteId = _siguienteId++;
+        _raizUsada[raiz] = true;
+        _lotes[loteId] = Lote(raiz, facultad, idCeremonia, msg.sender, uint64(block.timestamp));
+        emit LoteAnclado(loteId, facultad, raiz, idCeremonia, msg.sender);
     }
 
+    /// @dev Un lote existe si tiene raíz: anclarLote nunca guarda una raíz vacía.
     function verificarInclusion(
         uint256 loteId,
         bytes10 localizador,
         bytes32 compromiso,
         bytes32[] calldata prueba
     ) external view override returns (bool) {
-        // TODO: revertir con LoteInexistente si no existe
-        // TODO: calcular la hoja y verificar con MerkleProof.verifyCalldata
-        loteId; localizador; compromiso; prueba;
-        revert("TODO: verificarInclusion");
+        bytes32 raiz = _lotes[loteId].raiz;
+        if (raiz == bytes32(0)) revert LoteInexistente(loteId);
+        return MerkleProof.verifyCalldata(prueba, raiz, ConstantesUBO.hojaLote(localizador, compromiso));
     }
 
     function obtenerLote(uint256 loteId) external view returns (Lote memory) {
