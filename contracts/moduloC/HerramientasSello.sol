@@ -48,14 +48,21 @@ contract HerramientasSello is IHerramientasSello {
     // ---------------------------------------------------------------
     // Raíz de Merkle
     // ---------------------------------------------------------------
+    /// @dev Reduce nivel a nivel sobre la misma copia en memoria: el nodo i del nivel
+    ///      siguiente se escribe en la posición i, que ya fue leída. Si sobra un nodo,
+    ///      sube tal cual.
     function raizDeMerkle(bytes32[] calldata hojas) external pure override returns (bytes32) {
-        // TODO: revertir con ListaVacia si no hay hojas
-        // TODO: copiar las hojas a memoria y reducir nivel a nivel:
-        //       - emparejar (0,1), (2,3), ... con _hashPar
-        //       - si sobra un nodo, sube tal cual al nivel siguiente
-        //       - repetir hasta que quede un solo nodo: la raíz
-        hojas;
-        revert("TODO: raizDeMerkle");
+        uint256 n = hojas.length;
+        if (n == 0) revert ListaVacia();
+        bytes32[] memory nivel = hojas;
+        while (n > 1) {
+            uint256 m = 0;
+            for (uint256 i = 0; i < n; i += 2) {
+                nivel[m++] = i + 1 < n ? _hashPar(nivel[i], nivel[i + 1]) : nivel[i];
+            }
+            n = m;
+        }
+        return nivel[0];
     }
 
     /// @dev Hash de un par ordenado, igual que MerkleProof de OpenZeppelin. YA HECHA.
