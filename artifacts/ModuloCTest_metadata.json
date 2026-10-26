@@ -1,0 +1,231 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "beforeEach",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "documentoAlteradoUnCaracter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "explicacionDeRectificacion",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "localizadorSinSesgo",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "loteYPruebasDeInclusion",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "raizDeMerkleEnSolidity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "veredictoValido",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "veredictosInexistenteYEmisorNoAutorizado",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "veredictosRevocadoSuspendidoYOrden",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"title": "Pruebas del Módulo C — PLANTILLA (Curso C)",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"notice": "Usa SimRegistroEmisores y SimRegistroTitulos en lugar de los módulos reales.         Mínimo 8 pruebas. Dos están resueltas como ejemplo; completar el resto.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/ModuloC_test.sol": "ModuloCTest"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts@5.1.0/utils/cryptography/Hashes.sol": {
+			"keccak256": "0x631dc1958d5308bd2d9f91190bbcde4f9ffb9d9401ce8d358c17b35f1a942bb7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e7ef16d9a6f57eae9ab275116eaba1e8de70efd3d0e3682b1585b8f069d9c3f9",
+				"dweb:/ipfs/QmR3JQHAyv4sNWnRHeiC6oaz8Bqn8rtzu5sdAqAJRtBqpj"
+			]
+		},
+		"@openzeppelin/contracts@5.1.0/utils/cryptography/MerkleProof.sol": {
+			"keccak256": "0x36a0c409c437a753cac9b92b75f93b0fbe92803bf2c8ff1517e54b247f166134",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0f91ba472de411aa557cdbf6560c40750d87bd11c9060bc04d2ba7119af9d5a6",
+				"dweb:/ipfs/QmQjtYo2i7dDvzCEzZ67bDoNSG4RrwMoxPWuqFmX5Xzpuw"
+			]
+		},
+		"contracts/comun/ActorPruebas.sol": {
+			"keccak256": "0xd9f1ead53cdd7d9407eaaf5a98c102a6ef2268b02a290c1cadb300dce9708500",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7ee66a667cca496651ab30d018afa7c71769b1fb1f85e163c9c8bb2c2e45da30",
+				"dweb:/ipfs/QmXK69sCDrshKrerFzSm8BscMHJzEh6TmPrhjz2H49ESe8"
+			]
+		},
+		"contracts/comun/ConstantesUBO.sol": {
+			"keccak256": "0x98b5eb980888c977c2c6d2a61d525b30c1af56131c5eebeddd41c187958c72c3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ad5d2fc052ee90f5fb91d46c3a1d6d4a843607d9fa4885d45d50d7b2d8bb6097",
+				"dweb:/ipfs/QmZj51fAobyFyX8iSXRhYoGDuuSrHRTxqjjiKLker1NJdW"
+			]
+		},
+		"contracts/interfaces/IAnclajeLotes.sol": {
+			"keccak256": "0xc276a4fba23d5ca19dd33c517112cc8e8ed4e2ec29ec6b5b30cc8d6cd166ea9c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://165d0852e6974312e99a1ae0e4bbdb088c9759b06de1d842f838938c1ba44add",
+				"dweb:/ipfs/QmQLwiaSzZRFYkfhGqdcHgbTY1bmFoJ6my8SGGvZzC8JyG"
+			]
+		},
+		"contracts/interfaces/IHerramientasSello.sol": {
+			"keccak256": "0xcbaecb93ab569b76f362c93e13a442f1b7be54c33cb72341460ccab5c91506b5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a050bf5dd06afa8300d13d13ebe93e9965cbdd28232add464f8c21abab92c07c",
+				"dweb:/ipfs/QmZ9FDwtXWmyL2gm4wJAEVp3bCjfVdbxoEqturvGVhB9x6"
+			]
+		},
+		"contracts/interfaces/IRegistroEmisores.sol": {
+			"keccak256": "0x17f85012290d033c4268948ddea5c00f938a7847bd7bd41cb2f5353e76ffa740",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9d224db6f617f24b6df0d57dc3cef8ceb366e2c8d9678d91635e96e7e2b9ed53",
+				"dweb:/ipfs/QmaGGReJ43ffpZbgkXWt7VuCeAatCmBgk86hpmdBsjMuqS"
+			]
+		},
+		"contracts/interfaces/IRegistroTitulos.sol": {
+			"keccak256": "0x2b05626639c743c9cad4ae124ff6a1b43606a5c9111be87ca72e6d84d633c249",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a068e68df08e77cad1c9d392ac7ebd46a3d9121918a21ec2b6fc4d64be4d0204",
+				"dweb:/ipfs/QmQWFzZxSyZgNHufSVvdb8kXivNpGxL7WpRDL8Eftan8ig"
+			]
+		},
+		"contracts/interfaces/IVerificadorUBO.sol": {
+			"keccak256": "0x5bf543b10dd8cfb198f639a4cc34483b10b73b53b856664ee0ab82c7ff7f4a11",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ddf8e2b28ce06c6e051781490a55567ab958d190f221f2541c25484ffa92a45a",
+				"dweb:/ipfs/QmQkgmtJaKzmfrgDQN2aMDaVjoov19CUtU4MLz2TM36Luw"
+			]
+		},
+		"contracts/moduloC/AnclajeLotes.sol": {
+			"keccak256": "0xa13d0a94005ed8e0bf6179387d5984481408d1427a96cd7073f8082b6deea67a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7724470e82b05144a6810a39d23bebbe0c8c6d58b7ba78b24fad25ce4bde338f",
+				"dweb:/ipfs/Qmd7uSnophttdP6pK9rxRBEwbyVnYu7omj1F2pn8RFT5n1"
+			]
+		},
+		"contracts/moduloC/HerramientasSello.sol": {
+			"keccak256": "0x5ccbc447ac09d11d201bcf76918450f52d6a6ed8607a2dabd180073567290ef3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://92d809efc0f290df74078290709d5dca776aca1a47aa0b549975f180387fa622",
+				"dweb:/ipfs/QmUez3uKVp983emji8kEnwmziAK1tL1UAgR2CJfpPbqSKH"
+			]
+		},
+		"contracts/moduloC/VerificadorUBO.sol": {
+			"keccak256": "0x152f5666f0ddf197a575ea2b68280f936ae9cdac1ad33c5281f6c4940cc6fd6d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://74a4f82883672a43aa7c968b86afa662cbcb3eca88c5cabbc4209b88b8c228a1",
+				"dweb:/ipfs/QmZypN5GcLM3dQwaLCYoDPVrxC5Db4UEWWkZLXVMwjQ473"
+			]
+		},
+		"contracts/simulacros/SimRegistroEmisores.sol": {
+			"keccak256": "0x24af43ccea133a312a0943ace5e5c2538ff39eba05c97b3c6eec532677054142",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6515d8df026dfc4d2221f1fd349c778b91af2a5afce7207238b5052151f28584",
+				"dweb:/ipfs/QmaLJnovisSsg2tv7EBpmse3wi7PEsTp9ZH43TPmrDjmt7"
+			]
+		},
+		"contracts/simulacros/SimRegistroTitulos.sol": {
+			"keccak256": "0xf14c89ad41f5f02e7f25bb26068db1cbdf7e49b2872b67bccd7b8a96437aea09",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bed679da103edcd3622c2a7c6e6ca5baf925462c7593ebcf58ca2f75a687e46b",
+				"dweb:/ipfs/QmcVWGWbvV2H66FWT8Eo8u44QMkbhtwnanusRSTrPc3asQ"
+			]
+		},
+		"remix_tests.sol": {
+			"keccak256": "0xe2783cdc204cba8c72494119339f1d90f9022b15d6c718c668b7f097d8e29787",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://bb6a22e64c7f16bcaab63b1c1a1b269d5be8a6d37bdd9dec1718477ab916b18e",
+				"dweb:/ipfs/QmdkW1tT5iadBvaHMCoskhDGZKnfdg8o1D9CcoQYtdJet7"
+			]
+		},
+		"tests/ModuloC_test.sol": {
+			"keccak256": "0x8a17d5b3c296785d34809319c7a7a0a41b30a1318f2d5b19086315a8d131ca61",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9cb012b8ec1c888e27c0183b2803e4fe5f0c59f5c769614d535ef86a2cdf4b87",
+				"dweb:/ipfs/QmS1D7kpWY6xTmqX9khdoeMNvKUaEqyJawUF4SukqrbJin"
+			]
+		}
+	},
+	"version": 1
+}
