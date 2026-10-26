@@ -62,6 +62,14 @@ contract ModuloCTest {
         return 36;
     }
 
+    /// @dev Cambia el estado de un título ya fijado en el simulacro.
+    function _ponerEstado(bytes10 loc, IRegistroTitulos.Estado e, bytes10 nuevo) internal {
+        IRegistroTitulos.Titulo memory t = titulos.obtenerTitulo(loc);
+        t.estado = e;
+        t.rectificadoComo = nuevo;
+        titulos.fijarTitulo(loc, t);
+    }
+
     // ---------- EJEMPLO 1 (resuelto) ----------
     function veredictoValido() public {
         bytes32 c = _tituloValido(L1);
@@ -79,21 +87,49 @@ contract ModuloCTest {
 
     // ---------- PRUEBAS OBLIGATORIAS (completar) ----------
     function veredictosInexistenteYEmisorNoAutorizado() public {
-        // TODO: un localizador nunca emitido -> Inexistente;
-        //       fijarPeriodo() que empiece DESPUÉS de fechaEmision -> EmisorNoAutorizado
-        Assert.ok(false, "TODO");
+        // (a) localizador nunca emitido -> Inexistente
+        Assert.equal(uint256(verificador.verificar(bytes10("ZZZZZZZZZZ"), bytes32(0))),
+            uint256(IVerificadorUBO.Veredicto.Inexistente), "Debe ser Inexistente");
+    
+        // (b) periodo que empieza DESPUÉS de la fecha de emisión -> EmisorNoAutorizado
+        bytes32 c = _tituloValido(L1);
+        registro.fijarPeriodo(emisorIng, ConstantesUBO.ING, uint64(block.timestamp + 1000), 0);
+        Assert.equal(uint256(verificador.verificar(L1, c)),
+            uint256(IVerificadorUBO.Veredicto.EmisorNoAutorizado), "Debe ser EmisorNoAutorizado");
     }
-
+    
     function veredictosRevocadoSuspendidoYOrden() public {
-        // TODO: suspender -> Suspendido; revocar -> Revocado;
-        //       un título revocado Y con documento alterado debe dar Revocado
-        Assert.ok(false, "TODO");
+        bytes32 c = _tituloValido(L1);
+        bytes32 alterado = ConstantesUBO.compromiso(SAL_, keccak256('{"programa":"ING-INFORMATICB"}'));
+    
+        _ponerEstado(L1, IRegistroTitulos.Estado.Suspendido, bytes10(0));
+        Assert.equal(uint256(verificador.verificar(L1, c)),
+            uint256(IVerificadorUBO.Veredicto.Suspendido), "Debe ser Suspendido");
+    
+        _ponerEstado(L1, IRegistroTitulos.Estado.Revocado, bytes10(0));
+        Assert.equal(uint256(verificador.verificar(L1, c)),
+            uint256(IVerificadorUBO.Veredicto.Revocado), "Debe ser Revocado");
+    
+        // Orden: revocado Y documento alterado -> Revocado (el estado va antes que el compromiso)
+        Assert.equal(uint256(verificador.verificar(L1, alterado)),
+            uint256(IVerificadorUBO.Veredicto.Revocado), "Revocado gana a DocumentoAlterado");
+    
+        // Orden: revocado Y emisor no autorizado -> EmisorNoAutorizado (el emisor va antes)
+        registro.fijarPeriodo(emisorIng, ConstantesUBO.ING, uint64(block.timestamp + 1000), 0);
+        Assert.equal(uint256(verificador.verificar(L1, c)),
+            uint256(IVerificadorUBO.Veredicto.EmisorNoAutorizado), "EmisorNoAutorizado gana a Revocado");
     }
-
+    
     function explicacionDeRectificacion() public {
-        // TODO: rectificar L1 a otro localizador con el simulacro y comprobar que
-        //       verificarConExplicacion(L1, ...) menciona el nuevo localizador
-        Assert.ok(false, "TODO");
+        bytes32 c = _tituloValido(L1);
+        bytes10 nuevo = bytes10("NUEVO12345");
+        _ponerEstado(L1, IRegistroTitulos.Estado.Revocado, nuevo);
+    
+        (IVerificadorUBO.Veredicto v, string memory exp) = verificador.verificarConExplicacion(L1, c);
+        Assert.equal(uint256(v), uint256(IVerificadorUBO.Veredicto.Revocado), "Debe ser Revocado");
+        Assert.equal(exp,
+            "Titulo revocado por rectificacion. Pida el documento con el nuevo localizador: NUEVO12345",
+            "Debe mencionar el nuevo localizador");
     }
 
     function loteYPruebasDeInclusion() public {

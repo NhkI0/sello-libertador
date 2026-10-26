@@ -1,0 +1,309 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "registro_",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "loteId",
+						"type": "uint256"
+					}
+				],
+				"name": "LoteInexistente",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "cuenta",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "facultad",
+						"type": "bytes32"
+					}
+				],
+				"name": "NoAutorizado",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "raiz",
+						"type": "bytes32"
+					}
+				],
+				"name": "RaizDuplicada",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "RaizInvalida",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "loteId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "facultad",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "raiz",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "idCeremonia",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "emisor",
+						"type": "address"
+					}
+				],
+				"name": "LoteAnclado",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "raiz",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "facultad",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "idCeremonia",
+						"type": "bytes32"
+					}
+				],
+				"name": "anclarLote",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "loteId",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "loteId",
+						"type": "uint256"
+					}
+				],
+				"name": "obtenerLote",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "bytes32",
+								"name": "raiz",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "facultad",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "idCeremonia",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "address",
+								"name": "emisor",
+								"type": "address"
+							},
+							{
+								"internalType": "uint64",
+								"name": "fecha",
+								"type": "uint64"
+							}
+						],
+						"internalType": "struct AnclajeLotes.Lote",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "registro",
+				"outputs": [
+					{
+						"internalType": "contract IRegistroEmisores",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "loteId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes10",
+						"name": "localizador",
+						"type": "bytes10"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "compromiso",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32[]",
+						"name": "prueba",
+						"type": "bytes32[]"
+					}
+				],
+				"name": "verificarInclusion",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "Completar los TODO. Requisitos mínimos:         - Solo emisores autorizados AHORA en la facultad.         - Rechazar raíz vacía y raíces repetidas.         - Hoja = ConstantesUBO.hojaLote(localizador, compromiso).         - Verificación con MerkleProof.verify (pares ordenados).",
+			"kind": "dev",
+			"methods": {
+				"anclarLote(bytes32,bytes32,bytes32)": {
+					"details": "Orden: autorización (estaAutorizado, el presente), raíz vacía, raíz repetida.      Se escribe el estado solo después de validar todo."
+				},
+				"verificarInclusion(uint256,bytes10,bytes32,bytes32[])": {
+					"details": "Un lote existe si tiene raíz: anclarLote nunca guarda una raíz vacía."
+				}
+			},
+			"title": "AnclajeLotes — PLANTILLA del Módulo C (Curso C)",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"notice": "MODO ECONÓMICO, alternativo a RegistroTitulos: ancla la raíz de Merkle de una         ceremonia completa en UNA transacción, sin guardar cada título en la cadena.         No se usa sobre los mismos títulos que ya están en RegistroTitulos: es otra         forma de emitir, más barata y con menos funciones (no hay estado por título).",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/moduloC/AnclajeLotes.sol": "AnclajeLotes"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts@5.1.0/utils/cryptography/Hashes.sol": {
+			"keccak256": "0x631dc1958d5308bd2d9f91190bbcde4f9ffb9d9401ce8d358c17b35f1a942bb7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e7ef16d9a6f57eae9ab275116eaba1e8de70efd3d0e3682b1585b8f069d9c3f9",
+				"dweb:/ipfs/QmR3JQHAyv4sNWnRHeiC6oaz8Bqn8rtzu5sdAqAJRtBqpj"
+			]
+		},
+		"@openzeppelin/contracts@5.1.0/utils/cryptography/MerkleProof.sol": {
+			"keccak256": "0x36a0c409c437a753cac9b92b75f93b0fbe92803bf2c8ff1517e54b247f166134",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0f91ba472de411aa557cdbf6560c40750d87bd11c9060bc04d2ba7119af9d5a6",
+				"dweb:/ipfs/QmQjtYo2i7dDvzCEzZ67bDoNSG4RrwMoxPWuqFmX5Xzpuw"
+			]
+		},
+		"contracts/comun/ConstantesUBO.sol": {
+			"keccak256": "0x98b5eb980888c977c2c6d2a61d525b30c1af56131c5eebeddd41c187958c72c3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ad5d2fc052ee90f5fb91d46c3a1d6d4a843607d9fa4885d45d50d7b2d8bb6097",
+				"dweb:/ipfs/QmZj51fAobyFyX8iSXRhYoGDuuSrHRTxqjjiKLker1NJdW"
+			]
+		},
+		"contracts/interfaces/IAnclajeLotes.sol": {
+			"keccak256": "0xc276a4fba23d5ca19dd33c517112cc8e8ed4e2ec29ec6b5b30cc8d6cd166ea9c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://165d0852e6974312e99a1ae0e4bbdb088c9759b06de1d842f838938c1ba44add",
+				"dweb:/ipfs/QmQLwiaSzZRFYkfhGqdcHgbTY1bmFoJ6my8SGGvZzC8JyG"
+			]
+		},
+		"contracts/interfaces/IRegistroEmisores.sol": {
+			"keccak256": "0x17f85012290d033c4268948ddea5c00f938a7847bd7bd41cb2f5353e76ffa740",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9d224db6f617f24b6df0d57dc3cef8ceb366e2c8d9678d91635e96e7e2b9ed53",
+				"dweb:/ipfs/QmaGGReJ43ffpZbgkXWt7VuCeAatCmBgk86hpmdBsjMuqS"
+			]
+		},
+		"contracts/moduloC/AnclajeLotes.sol": {
+			"keccak256": "0xa13d0a94005ed8e0bf6179387d5984481408d1427a96cd7073f8082b6deea67a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7724470e82b05144a6810a39d23bebbe0c8c6d58b7ba78b24fad25ce4bde338f",
+				"dweb:/ipfs/Qmd7uSnophttdP6pK9rxRBEwbyVnYu7omj1F2pn8RFT5n1"
+			]
+		}
+	},
+	"version": 1
+}
