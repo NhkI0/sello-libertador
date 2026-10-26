@@ -12,7 +12,7 @@ Pruebas nuevas: `veredictosInexistenteYEmisorNoAutorizado`, `veredictosRevocadoS
 
 Resultado en Remix con solo `tests/ModuloC_test.sol` marcado: **Passed: 8, Failed: 0, Time Taken: 2.12s**.
 
-![Panel Solidity Unit Testing, 8 pruebas en verde](test_8-8.png)
+![Panel Solidity Unit Testing, 8 pruebas en verde](../hito3/test_8-8.png)
 
 | Prueba | Qué comprueba | Resultado |
 |--------|---------------|-----------|
